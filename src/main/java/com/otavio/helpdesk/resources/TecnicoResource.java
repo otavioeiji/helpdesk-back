@@ -14,9 +14,7 @@ import com.otavio.helpdesk.services.TecnicoService;
 @RestController
 @RequestMapping(value = "/tecnicos")
 public class TecnicoResource {
-	
-	//localhost:8080/tecnicos/1
-	
+		
 	@Autowired
 	private TecnicoService service;
 	

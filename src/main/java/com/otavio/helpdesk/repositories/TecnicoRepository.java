@@ -1,0 +1,9 @@
+package com.otavio.helpdesk.repositories;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.otavio.helpdesk.domain.Tecnico;
+
+public interface TecnicoRepository extends JpaRepository<Tecnico, Integer>{
+
+}

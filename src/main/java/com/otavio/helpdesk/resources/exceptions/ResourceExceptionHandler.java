@@ -1,6 +1,7 @@
 package com.otavio.helpdesk.resources.exceptions;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolationException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,6 +48,16 @@ public class ResourceExceptionHandler {
 		}
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+	}  
+	
+	@ExceptionHandler(ConstraintViolationException.class)
+	public ResponseEntity<StandardError> dataIntegrityViolationException(ConstraintViolationException ex, 
+			HttpServletRequest request) {
+		
+		ValidationError errors = new ValidationError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
+				"Validation error", "Número de CPF inválido!", request.getRequestURI());
+		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);  
 	}
 
 }

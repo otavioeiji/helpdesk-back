@@ -57,7 +57,8 @@ public class ClienteService {
 		
 		if(obj.getChamados().size() > 0) {
 			throw new DataIntegrityViolationException("Cliente possui ordens de serviço e não pode ser deletado!");
-		}
+		} if(obj.getCpf() != "ROLE_ADMIN") {
+			throw new DataIntegrityViolationException("Perfil não autorizado!");
 		
 		repository.deleteById(id);
 	}

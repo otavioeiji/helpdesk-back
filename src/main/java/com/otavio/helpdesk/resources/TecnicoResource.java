@@ -61,7 +61,7 @@ public class TecnicoResource {
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<TecnicoDTO> delete(@PathVariable Integer id) {
-		if(!Perfil.ADMIN.getCodigo().equals(id)) {
+		if(Perfil.ADMIN.getCodigo().equals(id)) {
 			throw new DataIntegrityViolationException("Não possui permissão para deletar");
 		}
 		service.delete(id);

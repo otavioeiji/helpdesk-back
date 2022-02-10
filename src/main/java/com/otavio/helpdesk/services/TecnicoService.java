@@ -5,14 +5,14 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.WebRequest;
 
 import com.otavio.helpdesk.domain.Pessoa;
 import com.otavio.helpdesk.domain.Tecnico;
@@ -21,7 +21,6 @@ import com.otavio.helpdesk.repositories.PessoaRepository;
 import com.otavio.helpdesk.repositories.TecnicoRepository;
 import com.otavio.helpdesk.services.exceptions.DataIntegrityViolationException;
 import com.otavio.helpdesk.services.exceptions.ObjectnotFoundException;
-import com.otavio.helpdesk.domain.enums.Perfil;
 
 @Service
 public class TecnicoService {
@@ -67,9 +66,8 @@ public class TecnicoService {
 		
 		if(obj.getChamados().size() > 0) {
 			throw new DataIntegrityViolationException("Técnico possui ordens de serviço e não pode ser deletado!");
-		} if(Perfil.TECNICO.getCodigo() != 0) {
-			throw new DataIntegrityViolationException("Não autorizado!");
-		}
+		} 
+		
 		repository.deleteById(id);
 	}
 	

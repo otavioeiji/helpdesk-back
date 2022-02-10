@@ -6,8 +6,13 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
 
 import com.otavio.helpdesk.domain.Pessoa;
 import com.otavio.helpdesk.domain.Tecnico;
@@ -63,6 +68,11 @@ public class TecnicoService {
 			throw new DataIntegrityViolationException("Técnico possui ordens de serviço e não pode ser deletado!");
 		}
 		repository.deleteById(id);
+	}
+	
+	@ExceptionHandler(AccessDeniedException.class)
+	public ResponseEntity<Object> handleAccessDeniedException(Exception e, WebRequest request) {
+	    return new ResponseEntity<Object>("Acesso negado!", HttpStatus.FORBIDDEN);
 	}
 	
 	private void validaPorCpfEEmail(TecnicoDTO objDTO) {

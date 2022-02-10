@@ -21,6 +21,7 @@ import com.otavio.helpdesk.repositories.PessoaRepository;
 import com.otavio.helpdesk.repositories.TecnicoRepository;
 import com.otavio.helpdesk.services.exceptions.DataIntegrityViolationException;
 import com.otavio.helpdesk.services.exceptions.ObjectnotFoundException;
+import com.otavio.helpdesk.domain.enums.Perfil;
 
 @Service
 public class TecnicoService {

@@ -3,6 +3,7 @@ package com.otavio.helpdesk.resources.exceptions;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -58,6 +59,16 @@ public class ResourceExceptionHandler {
 				"Validation error", "Número de CPF inválido!", request.getRequestURI());
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);  
+	}
+	
+	@ExceptionHandler(UsernameNotFoundException.class)
+	public ResponseEntity<StandardError> objectnotFoundEsception(UsernameNotFoundException ex, 
+			HttpServletRequest request) {
+		
+		StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.FORBIDDEN.value(), 
+				"Não tem permissão!", ex.getMessage(), request.getRequestURI());
+		
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
 	}
 
 }

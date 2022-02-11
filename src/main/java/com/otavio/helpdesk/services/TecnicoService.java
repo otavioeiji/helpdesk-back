@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.otavio.helpdesk.domain.Pessoa;
 import com.otavio.helpdesk.domain.Tecnico;
 import com.otavio.helpdesk.domain.dtos.TecnicoDTO;
-import com.otavio.helpdesk.domain.enums.Perfil;
 import com.otavio.helpdesk.repositories.PessoaRepository;
 import com.otavio.helpdesk.repositories.TecnicoRepository;
 import com.otavio.helpdesk.services.exceptions.DataIntegrityViolationException;
@@ -62,8 +61,6 @@ public class TecnicoService {
 		
 		if(obj.getChamados().size() > 0) {
 			throw new DataIntegrityViolationException("Técnico possui ordens de serviço e não pode ser deletado!");
-		} else if(Perfil.TECNICO.toString() != "ADMIN") {
-			throw new DataIntegrityViolationException("Técnico não possui privilégio de ADMIN!");
 		}
 		
 		repository.deleteById(id);

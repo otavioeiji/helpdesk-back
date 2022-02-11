@@ -5,11 +5,6 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import java.util.List;
-import java.util.Optional;
-
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -66,7 +61,9 @@ public class TecnicoService {
 		
 		if(obj.getChamados().size() > 0) {
 			throw new DataIntegrityViolationException("Técnico possui ordens de serviço e não pode ser deletado!");
-		} 
+		} else if(Perfil.TECNICO != Perfil.ADMIN) {
+			throw new DataIntegrityViolationException("Técnico não possui privilégio de ADMIN!");
+		}
 		
 		repository.deleteById(id);
 	}

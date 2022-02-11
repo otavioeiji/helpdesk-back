@@ -61,7 +61,8 @@ public class TecnicoService {
 		
 		if(obj.getChamados().size() > 0) {
 			throw new DataIntegrityViolationException("Técnico possui ordens de serviço e não pode ser deletado!");
-		} 
+		} if( Perfil.ADMIN.getCodigo() != 0 ) {
+			throw new DataIntegrityViolationException("Técnico não possui privilégio de ADMIN!");
 		
 		repository.deleteById(id);
 	}
